@@ -7,36 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>${product.name}</title>
-<style>
-   .product-content {
-    max-height: 120px;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    position: relative;
-}
-.product-content.expanded {
-    max-height: none;
-}
-.read-more-btn {
-    display: inline-block;
-    color: #007bff;
-    cursor: pointer;
-    margin-top: 8px;
-}
-.gradient-fade {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 40px;
-    background: linear-gradient(to bottom, transparent, white);
-    pointer-events: none;
-}
-.product-content.expanded .gradient-fade {
-    display: none;
-}
-</style>
-
 </head>
 <body>
 
@@ -192,13 +162,14 @@
 				<div class="row mb-3">
 					<div class="col-lg-7" style="padding-left: 0 !important;">
 						<div class="product-details shadow-sm">
-						    <div class="product-content" id="product-content">
-						        <div class="product-detail-text">
+						    <div class="read-more-container" id="product-content">
+						    	<div class="read-more-overlay"></div>
+						        <div class="product-detail-text ">
 						            <c:out value="${product.detail}" escapeXml="false"/>
 						        </div>
-						        <div class="gradient-fade"></div>
+						        
 						    </div>
-						    <div class="read-more-btn">Xem thêm</div>
+						    <div id="toggleReadMore" class="read-more-toggle">Xem thêm</div>
 						</div>
 					</div>
 					<div class="col-lg-5 product-fix-padding">
@@ -412,21 +383,15 @@
 			});
 		});
 	</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const content = document.getElementById('product-content');
-        const btn = document.querySelector('.read-more-btn');
-
-        // Nếu nội dung không đủ dài thì ẩn nút "Xem thêm"
-        if (content.scrollHeight <= 120) {
-            btn.style.display = "none";
-        }
-
-        btn.addEventListener("click", function () {
-            content.classList.toggle('expanded');
-            btn.textContent = content.classList.contains('expanded') ? 'Thu gọn' : 'Xem thêm';
-        });
-    });
+	<script>
+	 $('#toggleReadMore').on('click', function () {
+	        $('#product-content').toggleClass('expanded');
+	        if ($('#product-content').hasClass('expanded')) {
+	            $(this).text('Thu gọn');
+	        } else {
+	            $(this).text('Xem thêm');
+	        }
+	    });
 </script>
 </body>
 </html>

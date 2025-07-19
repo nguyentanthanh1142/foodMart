@@ -26,9 +26,9 @@
 	</section>
 	<div class="container my-5">
 		<div class="row justify-content-center">
-			<div class="col-lg-8">
+			<div class="col-lg-8 " >
 
-				<p class="text-uppercase text-muted fw-semibold small">Công nghệ</p>
+				<p class="text-uppercase text-muted fw-semibold small">${topic.slug}</p>
 				<h1 class="fw-bold mb-3">${news.title }</h1>
 
 				<p class="text-muted mb-1">
@@ -37,7 +37,7 @@
 
 				<p class="fs-5 mt-3">${shortDescription}</p>
 
-				<div class="my-4">${news.content}</div>
+				<div class="my-4 content-new" >${news.content}</div>
 			</div>
 			<div class="col-lg-8">
 				<h5>Bình luận</h5>
@@ -135,8 +135,15 @@
 				success : function(result) {
 					$('#commentForm')[0].reset();
 				},
-				error : function(error) {
-					console.error("Lỗi khi gửi bình luận:", error);
+				error : function(xhr, status,error) {
+					if(xhr.status === 401 )
+					{
+						alert("Vui lòng đăng nhập để bình luận.");
+					}
+					else{
+						console.error("Lỗi khi gửi bình luận:", error);
+						alert("Đã xảy ra lỗi khi gửi bình luận.");
+					}
 				}
 			});
 		});

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ecommercewebsite.constant.SystemConstant;
 import com.ecommercewebsite.model.NewModel;
-import com.ecommercewebsite.service.ICommentService;
 import com.ecommercewebsite.service.INewService;
 import com.ecommercewebsite.service.ITopicService;
 import com.ecommercewebsite.utils.FormUtil;
@@ -23,8 +22,6 @@ public class NewController extends BaseController {
 	private INewService newService;
 	@Inject 
 	private ITopicService topicService;
-	@Inject
-	private ICommentService commentService;
 	/**
 	 * 
 	 */
@@ -46,6 +43,7 @@ public class NewController extends BaseController {
 				
 			}
 			req.setAttribute("topics", topicService.findAll());
+			
 			view = "/views/admin/new/edit.jsp";
 		}
 		req.setAttribute(SystemConstant.MODEL, model);

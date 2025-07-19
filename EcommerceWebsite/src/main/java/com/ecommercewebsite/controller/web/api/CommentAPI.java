@@ -39,23 +39,25 @@ public class CommentAPI extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper();
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
+		UserModel user = (UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL");
+		if(user ==null)
+		{
+			resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            mapper.writeValue(resp.getOutputStream(), "Bạn cần đăng nhập để bình luận.");
+            return;
+		}
 		CommentModel comment = HttpUtil.of(req.getReader()).toModel(CommentModel.class);
 		comment.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-		comment.setUsername(((UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL")).getFullName());
-		comment.setUserId(((UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL")).getId());
-		System.out.println("User  Id " + comment.getUserId());
-		System.out.println("Post  Id " + comment.getPostId());
-		System.out.println("Content " + comment.getContent());
-		System.out.println("User  Id " + comment.getUsername());
+		comment.setUsername(user.getFullName());
+		comment.setUserId(user.getId());
 		try {
-			System.out.println("DA zo duoc try");
 			commentService.saveComment(comment);
-			System.out.println("DA zo duoc try 2");
 			CommentWebSocket.broadcast(comment.getPostId(), "new-comment", comment);
 			mapper.writeValue(resp.getOutputStream(), comment);
 		} catch (Exception e) {
 			e.printStackTrace();
-			resp.setStatus(500);
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            mapper.writeValue(resp.getOutputStream(), "Đã xảy ra lỗi khi lưu bình luận.");
 		}
 	}
 
