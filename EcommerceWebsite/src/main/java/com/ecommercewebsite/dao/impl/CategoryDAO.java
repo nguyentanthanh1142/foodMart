@@ -27,23 +27,23 @@ public class CategoryDAO extends AbstractDAO<CategoryModel> implements ICategory
 	@Override
 	public Long save(CategoryModel category) {
 		StringBuilder sql = new StringBuilder(
-				"insert into category (img, hotCate, parentId,name,slug,metadesc,metakey,status,createdAt,createdBy,modifiedAt,modifiedBy) ");
-		sql.append("values (?,?,?,?,?,?,?,?,?,?,?,?)");
+				"insert into category (img, hotCate, parentId,name,slug,metadesc,metakey,status,createdAt,createdBy,modifiedAt,modifiedBy,showProductsHomePage) ");
+		sql.append("values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 		System.out.print(sql.toString());
 		return insert(sql.toString(), category.getImg(), category.isHotCate(), category.getParentId(),
 				category.getName(), category.getSlug(), category.getMetadesc(), category.getMetakey(),
 				category.getStatus(), category.getCreatedAt(), category.getCreatedBy(), category.getModifiedAt(),
-				category.getModifiedBy());
+				category.getModifiedBy(),category.isShowProductsHomePage());
 	}
 
 	@Override
 	public void update(CategoryModel category) {
 		StringBuilder sql = new StringBuilder("UPDATE category SET name = ?, slug = ?, metadesc = ?,");
 		sql.append(" metakey = ?, status = ?, parentId = ?, img = ?, hotCate = ?,");
-		sql.append(" createdAt = ?, createdby = ?, modifiedAt = ?, modifiedby = ? WHERE id = ?");
+		sql.append(" createdAt = ?, createdby = ?, modifiedAt = ?, modifiedby = ?, showProductsHomePage = ? WHERE id = ?");
 		update(sql.toString(), category.getName(), category.getSlug(), category.getMetadesc(), category.getMetakey(),
 				category.getStatus(), category.getParentId(), category.getImg(), category.isHotCate(),
-				category.getCreatedAt(), category.getCreatedBy(), category.getModifiedAt(), category.getModifiedBy(),
+				category.getCreatedAt(), category.getCreatedBy(), category.getModifiedAt(), category.getModifiedBy(), category.isShowProductsHomePage(),
 				category.getId());
 	}
 
@@ -107,7 +107,7 @@ public class CategoryDAO extends AbstractDAO<CategoryModel> implements ICategory
 
 	@Override
 	public List<CategoryModel> categoriesHomeShow() {
-		String sql = "SELECT * FROM category WHERE status = 1 and parentid = 0";
+		String sql = "SELECT * FROM category WHERE status = 1 and parentid = 0 and showProductsHomePage = 1" ;
 		return query(sql, new CategoryMapper());
 	}
 

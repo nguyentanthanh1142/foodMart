@@ -79,12 +79,15 @@
                                     <input type="text" class="form-control" id="name" name="name" value="${model.name}" required />
                                 </div>
                             </div>
-                                                        <div class="form-group">
-                                <label class="control-label no-padding-right">Slug</label>
-                                <div ">
-                                    <input type="text" class="form-control" id="slug" name="slug" value="${model.slug}" required />
-                                </div>
-                            </div>
+								<div class="form-group">
+									<label class=" control-label no-padding-right">Slug</label>
+									<div class="input-group mb-3 form-group">
+										<input type="text" class="form-control" id="slug" name="slug" value="${model.slug}" required>
+										<div class="input-group-append">
+											<button type="button" class="input-group-text" id="btnGenerateSlug"">Tạo mã</button>
+										</div>
+									</div>
+								</div>
                             <div class="form-group">
                                 <label class="control-label no-padding-right">Mô tả ngắn</label>
                                 <div>
@@ -365,7 +368,21 @@
     });
   </script>
 <script>
+  function generateSlug(str) {
+    return str.toLowerCase()
+      .normalize('NFD')                     
+      .replace(/[\u0300-\u036f]/g, '')      
+      .replace(/[^a-z0-9\s-]/g, '')         
+      .replace(/\s+/g, '-')                 
+      .replace(/-+/g, '-')                 
+      .replace(/^-+|-+$/g, '');            
+  }
 
+  document.getElementById('btnGenerateSlug').addEventListener('click', function () {
+    const name = document.getElementById('name').value;
+    const slug = generateSlug(name);
+    document.getElementById('slug').value = slug;
+  });
 </script>
 </body>
 </html>>

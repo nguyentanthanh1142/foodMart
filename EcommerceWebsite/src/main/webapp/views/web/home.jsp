@@ -121,7 +121,7 @@
 								<span class="discount-badge"><fmt:formatNumber
 										value="${(product.price - product.pricesale) * 100 /  product.price}"
 										type="number" maxFractionDigits="0" />%</span> <a
-									href="${product.slug }"><img
+									href="${productURL }/${product.slug }"><img
 									src="${product.productimg}"
 									class="img-fluid"></a>
 							</div>
@@ -156,18 +156,6 @@
 						<div
 							class="tabs-header d-flex justify-content-between border-bottom my-5">
 							<h3>${category.name }</h3>
-							<nav>
-								<div class="nav nav-tabs" id="nav-tab" role="tablist">
-									<a href="#" class="nav-link text-uppercase fs-6 active"
-										id="nav-all-tab" data-bs-toggle="tab"
-										data-bs-target="#nav-all">All</a> <a href="#"
-										class="nav-link text-uppercase fs-6" id="nav-fruits-tab"
-										data-bs-toggle="tab" data-bs-target="#nav-fruits">Fruits &
-										Veges</a> <a href="#" class="nav-link text-uppercase fs-6"
-										id="nav-juices-tab" data-bs-toggle="tab"
-										data-bs-target="#nav-juices">Juices</a>
-								</div>
-							</nav>
 						</div>
 						<div class="tab-content" id="nav-tabContent">
 							<div class="tab-pane fade show active" id="nav-all"
@@ -242,11 +230,13 @@
 										class="product-image w-100 mb-2" alt="Hành tây">
 									<div class="fw-semibold">${item.name }</div>
 									<div>
-										<span class="old-price">${item.price }đ</span> <span
-											class="text-success fw-bold">${item.pricesale }đ</span>
-									</div>
-									<button class="btn btn-success btn-sm mt-2">Thêm vào
-										giỏ</button>
+								<span class="old-price my-3"><fmt:formatNumber
+										value="${item.price }" type="number" />₫</span> <span
+									class="text-success fw-bold"><fmt:formatNumber
+										value="${item.pricesale }" type="number" />₫</span>
+								</div>
+									<button class="btn-cart btn btn-success btn-sm mt-2  " data-product-id="${item.id}">Thêm
+								vào giỏ</button>
 								</div>
 							</div>
 						</c:forEach>

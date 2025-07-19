@@ -142,10 +142,6 @@ public class HomeController extends BaseController {
 			String host = mailrs.getString("host");
 			String port = mailrs.getString("port");
 
-//				
-//				String email = context.getInitParameter("email");
-//				String name = context.getInitParameter("name");
-//				String pass = context.getInitParameter("pass");
 
 			String recipient = req.getParameter("email");
 			String subject = "Your Password has been reset";

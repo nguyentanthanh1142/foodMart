@@ -67,12 +67,12 @@
 						<div class="slider-for">
 							<div class="product1">
 								<img
-									src="${pageContext.request.contextPath}/uploads/${product.productimg}"
+									src="${product.productimg}"
 									width="250px" height="auto">
 							</div>
 							<div class="product1">
 										<img
-											src="${pageContext.request.contextPath}/uploads/${product.productimg}"
+											src="${product.productimg}"
 											width="250px" height="auto">
 									</div>
 							<!--<c:forEach var="item" items="${listimgprod}">
@@ -88,7 +88,7 @@
 						<div class="slider-nav">
 							<div class="product2" style="width: 69.2px; margin-right: 10px;">
 								<img
-									src="${pageContext.request.contextPath}/images/${product.productimg}"
+									src="${product.productimg}"
 									width="250px" height="auto">
 							</div>
 							<!--<c:forEach var="item" items="${listimgprod}">
@@ -246,38 +246,21 @@
 								end="${countList}" varStatus="loop">
 								<c:if
 									test="${item.catid == product.catid && item.id != product.id}">
-									<div class="item">
-										<div class="card pt-3" style="width: 100%;">
-											<a
-												href="<c:url value='/san-pham/${item.slug}'/>"
-												title="${item.name}"> <img class="card-img-top"
-												src="${pageContext.request.contextPath}/uploads/${item.productimg}"
-												alt="" height="175">
-											</a>
-											<div class="card-body text-center">
-												<h6 class="card-title" title="${item.name}">
-													<a class="product-item-name"
-														href="<c:url value='/chi-tiet-san-pham/${item.slug}'/>"
-														title="${item.name}">${item.name}</a>
-												</h6>
-												<p>
-													<span class="price"><fmt:formatNumber
-															value="${item.pricesale}" type="number" />đ</span><span
-														class="oldprice"><fmt:formatNumber
-															value="${item.price}" type="number" />đ</span>
-												</p>
-												<div class="group-action">
-													<a class="btn-buy" title="Chi tiết sản phẩm"
-														href="<c:url value='/chi-tiet-san-pham/${item.slug}'/>">
-														<i class="fas fa-search"></i>
-													</a> <a class="btn-detail" title="Thêm vào giỏ hàng"
-														data-id="${item.id}"
-														href="<c:url value="/AddCart/${item.id}"/>"> <i
-														class="fas fa-cart-plus"></i></a>
-												</div>
-											</div>
-										</div>
+									<div class="product-card text-center h-100">
+									<div class="image_thumb">
+									<span class="discount-badge"><fmt:formatNumber value="${(item.price - item.pricesale) * 100 /  item.price}" type="number" maxFractionDigits="0" />%</span> 
+									<a href="${item.slug }"><img width="480" height="480"
+										src="${item.productimg}"
+										class="product-image w-100 mb-2" alt="Hành tây"></a>
 									</div>
+									<div class="fw-semibold"><a href="${item.slug }" title="${item.name }">${item.name }</a></div>
+									<span class="old-price my-3"><fmt:formatNumber
+															value="${item.price }" type="number" />₫</span>      <span
+										class="text-success fw-bold"><fmt:formatNumber
+															value="${item.pricesale }" type="number" />₫</span>
+									<button class="btn-cart btn btn-success btn-sm mt-2 ">Thêm vào
+										giỏ</button>
+								</div>
 								</c:if>
 							</c:forEach>
 						</div>

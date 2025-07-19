@@ -108,6 +108,15 @@
 									</div>
 								</div>
 								<div class="form-group">
+									<label class="control-label no-padding-right">Hiện thị sản phẩm ở trang chủ</label>
+									<div>
+										<select name="showProductsHomePage" id="showProductsHomePage" class="form-control">
+											<option value="false">Không hiển thị</option>
+											<option value="true" ${model.showProductsHomePage == true?"selected":"" }>Hiển thị</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
 									<label class="control-label no-padding-right">Hình ảnh</label>
 									<div>
 										<input type="file" class="form-control" id="img" name="img">

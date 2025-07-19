@@ -14,8 +14,17 @@ public class CategoryModel extends AbstractModel<CategoryModel> {
 	private List<CategoryModel> listChild;
 	private List<ProductModel> listProduct;
 	private boolean hotCate;
-	private String imgPublicId;
+	private boolean showProductsHomePage;
 	
+	private String imgPublicId;
+
+	public boolean isShowProductsHomePage() {
+		return showProductsHomePage;
+	}
+
+	public void setShowProductsHomePage(boolean showProductsHomePage) {
+		this.showProductsHomePage = showProductsHomePage;
+	}
 
 	public String getImgPublicId() {
 		return imgPublicId;

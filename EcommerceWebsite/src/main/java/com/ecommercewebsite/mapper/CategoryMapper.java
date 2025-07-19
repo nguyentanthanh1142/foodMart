@@ -25,7 +25,7 @@ public class CategoryMapper implements RowMapper<CategoryModel>{
 			model.setModifiedAt(result.getTimestamp("modifiedAt"));
 			model.setModifiedBy(result.getString("modifiedBy"));
 			model.setHotCate(result.getBoolean("hotCate"));
-			
+			model.setHotCate(result.getBoolean("showProductsHomePage"));
 			return model;
 		} catch(SQLException e) {
 			return null;
